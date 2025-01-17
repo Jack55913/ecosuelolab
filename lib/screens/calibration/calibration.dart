@@ -2,7 +2,7 @@ import 'package:ecosuelolab/models/constants.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+// import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 
 class CalibrationPage extends StatefulWidget {
@@ -28,11 +28,11 @@ class _CalibrationPageState extends State<CalibrationPage> {
           padding: EdgeInsets.all(8.0),
           child: Column(
             children: [
-              InAppWebView(
-                initialUrlRequest: URLRequest(
-                  url: WebUri("https://docs.google.com/document/d/1vnr7UVDlcPx_1DjoHr2niNTCjL5DJYS1QZwRVfJy68w/edit?usp=sharing")
-                ),
-              ),
+              // InAppWebView(
+              //   initialUrlRequest: URLRequest(
+              //     url: WebUri("https://docs.google.com/document/d/1vnr7UVDlcPx_1DjoHr2niNTCjL5DJYS1QZwRVfJy68w/edit?usp=sharing")
+              //   ),
+              // ),
             ],
           ),
         ),
