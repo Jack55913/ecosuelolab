@@ -133,10 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   data: DarkContainer(
                     fill: const TutorialWidget(),
                   ),
-                ),
-                const Divider(
-                  thickness: 1,
-                ),
+                ), 
                 const SizedBox(
                   height: 10,
                 ),
