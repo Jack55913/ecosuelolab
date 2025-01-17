@@ -1,19 +1,19 @@
 import 'package:ecosuelolab/models/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:ecosuelolab/screens/econductivity/econductivity.dart';
-import 'package:ecosuelolab/screens/hconductivity/hconductivity.dart';
-import 'package:ecosuelolab/screens/infiltration/infiltration.dart';
-import 'package:ecosuelolab/screens/microbian_activity/microbian_activity.dart';
-import 'package:ecosuelolab/screens/porosity/porosity.dart';
-import 'package:ecosuelolab/screens/pz/pz.dart';
-import 'package:ecosuelolab/screens/RealDensity/real_density.dart';
-import 'package:ecosuelolab/screens/adensity/apparent_density.dart';
-import 'package:ecosuelolab/screens/cic/cic.dart';
-import 'package:ecosuelolab/screens/color/color.dart';
-import 'package:ecosuelolab/screens/ph/ph.dart';
-import 'package:ecosuelolab/screens/structure/structure.dart';
-import 'package:ecosuelolab/screens/tconductivity/tconductivity.dart';
-import 'package:ecosuelolab/screens/texture/texture_menu.dart';
+import 'package:ecosuelolab/screens/soil/soilparameters/econductivity/econductivity.dart';
+import 'package:ecosuelolab/screens/soil/soilparameters/hconductivity/hconductivity.dart';
+import 'package:ecosuelolab/screens/soil/soilparameters/infiltration/infiltration.dart';
+import 'package:ecosuelolab/screens/soil/soilparameters/microbian_activity/microbian_activity.dart';
+import 'package:ecosuelolab/screens/soil/soilparameters/porosity/porosity.dart';
+import 'package:ecosuelolab/screens/soil/soilparameters/pz/pz.dart';
+import 'package:ecosuelolab/screens/soil/soilparameters/RealDensity/real_density.dart';
+import 'package:ecosuelolab/screens/soil/soilparameters/adensity/apparent_density.dart';
+import 'package:ecosuelolab/screens/soil/soilparameters/cic/cic.dart';
+import 'package:ecosuelolab/screens/soil/soilparameters/color/color.dart';
+import 'package:ecosuelolab/screens/soil/soilparameters/ph/ph.dart';
+import 'package:ecosuelolab/screens/soil/soilparameters/structure/structure.dart';
+import 'package:ecosuelolab/screens/soil/soilparameters/tconductivity/tconductivity.dart';
+import 'package:ecosuelolab/screens/soil/soilparameters/texture/texture_menu.dart';
 
 class SoilPage extends StatefulWidget {
   const SoilPage({super.key});

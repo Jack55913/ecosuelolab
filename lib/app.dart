@@ -1,6 +1,10 @@
 import 'package:ecosuelolab/models/constants.dart';
+import 'package:ecosuelolab/screens/calibration/calibration.dart';
+import 'package:ecosuelolab/screens/hydrosat/hydrosat.dart';
+import 'package:ecosuelolab/screens/irriwatch/irriwatch.dart';
 import 'package:ecosuelolab/screens/soil/soil.dart';
 import 'package:ecosuelolab/widgets/container.dart';
+import 'package:ecosuelolab/widgets/glass.dart';
 import 'package:ecosuelolab/widgets/tutorials.dart';
 import 'package:flutter/material.dart';
 
@@ -39,9 +43,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                 ),
-                const Divider(
-                  thickness: 1,
-                ),
                 ListTile(
                   leading: CircleAvatar(
                     backgroundColor: Colors.brown[300],
@@ -77,7 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const SoilPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const IrriwatchPage()),
                     );
                   },
                 ),
@@ -97,7 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const SoilPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const CalibrationPage()),
                     );
                   },
                 ),
@@ -118,7 +121,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const SoilPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const HydrosatPage()),
                     );
                   },
                 ),
@@ -135,7 +139,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 const SizedBox(
                   height: 10,
-                )
+                ),
+                // const GlassBow(
+                //   height: 200,
+                //   width: 200,
+                //   child: Text('data'),
+                // )
               ],
             ),
           ),

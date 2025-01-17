@@ -1,8 +1,11 @@
 import 'package:ecosuelolab/app.dart';
 import 'package:ecosuelolab/models/constants.dart';
 import 'package:flutter/material.dart';
+// import 'package:url_strategy/url_strategy.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // setPathUrlStrategy();
   runApp(const MyApp());
 }
 

@@ -33,9 +33,11 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
+  # flutter_inappwebview: ^6.1.5
   flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
+  # path_url_strategy_module: ^1.0.2
   url_launcher: ^6.3.1
 
 # For information on the generic Dart part of this file, see the
