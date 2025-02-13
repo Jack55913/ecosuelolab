@@ -1,5 +1,6 @@
 import 'package:ecosuelolab/app.dart';
 import 'package:ecosuelolab/models/constants.dart';
+import 'package:ecosuelolab/test.dart';
 import 'package:flutter/material.dart';
 // import 'package:url_strategy/url_strategy.dart';
 
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Ecosuelolab',
       theme: ecoTheme,
       home: const MyHomePage(),
+      // home: const TextureMenu()
     );
   }
 }

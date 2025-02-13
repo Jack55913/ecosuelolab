@@ -47,29 +47,29 @@ class TutorialWidget extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         _buildItem('Bienvenida', 'Sé parte de EcosueloLab con Irriwatch',
-            'https://fb.watch/rWvSWd16SB/'),
+            'https://www.instagram.com/ecosuelo_chile/'),
         const Divider(
           thickness: 1,
         ),
         _buildItem(
             'Calibración',
             'Paso a paso, del procedimientos del proceso de calibración',
-            'https://fb.watch/rWvSWd16SB/'),
+            'https://www.instagram.com/ecosuelo_chile/'),
         const Divider(
           thickness: 1,
         ),
         _buildItem('Irriwatch', 'Guía Rápida para usar Irriwatch',
-            'https://fb.watch/rWvSWd16SB/'),
+            'https://www.instagram.com/ecosuelo_chile/'),
         const Divider(
           thickness: 1,
         ),
         _buildItem('Datos de Irriwatch', 'Interpreta los datos como un pro',
-            'https://fb.watch/rWvSWd16SB/'),
+            'https://www.instagram.com/ecosuelo_chile/'),
         const Divider(
           thickness: 1,
         ),
         _buildItem('Mapa de Irriwatch', 'Monitorea tus cultivos en 30 segundos',
-            'https://fb.watch/rWvSWd16SB/'),
+            'https://www.instagram.com/ecosuelo_chile/'),
       ],
     );
   }

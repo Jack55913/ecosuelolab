@@ -60,7 +60,8 @@ class _SoilPageState extends State<SoilPage> {
                   ),
                 ),
                 title: const Text('Textura'),
-                subtitle: const Text('Calcula la clase textural '),
+                subtitle: const Text(
+                    'Es la proporción relativa de arena, limo y arcilla del suelo.'),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -96,13 +97,13 @@ class _SoilPageState extends State<SoilPage> {
                   ),
                 ),
                 title: const Text('Densidad Real'),
-                subtitle: const Text('Método tal '),
+                subtitle: const Text('Es igual a 2.65g/cm^3'),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const RealDensityScreen()),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => const RealDensityScreen()),
+                  // );
                 },
               ),
               const Padding(
@@ -127,7 +128,7 @@ class _SoilPageState extends State<SoilPage> {
                   ),
                 ),
                 title: const Text('pH '),
-                subtitle: const Text('Cintas...'),
+                subtitle: const Text('¡Próximamente!'),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -157,7 +158,7 @@ class _SoilPageState extends State<SoilPage> {
                   ),
                 ),
                 title: const Text('Capacidad de Intercambio Catiónico'),
-                subtitle: const Text('Cintas...'),
+                subtitle: const Text('¡Próximamente!'),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -174,7 +175,7 @@ class _SoilPageState extends State<SoilPage> {
                   ),
                 ),
                 title: const Text('Potencial Z'),
-                subtitle: const Text('Cintas...'),
+                subtitle: const Text('¡Próximamente!'),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -201,7 +202,7 @@ class _SoilPageState extends State<SoilPage> {
                   ),
                 ),
                 title: const Text('Estructura '),
-                subtitle: const Text('Cintas...'),
+                subtitle: const Text('¡Próximamente!'),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -219,7 +220,8 @@ class _SoilPageState extends State<SoilPage> {
                   ),
                 ),
                 title: const Text('Densidad Aparente '),
-                subtitle: const Text('Cintas...'),
+                subtitle: const Text(
+                    'Es el cociente que resulta de dividir el peso de suelo seco entre el volumen total, incluyendo los poros en g/cm3.'),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -236,7 +238,7 @@ class _SoilPageState extends State<SoilPage> {
                   ),
                 ),
                 title: const Text('Porosidad '),
-                subtitle: const Text('Cintas...'),
+                subtitle: const Text('¡Próximamente!'),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -254,7 +256,7 @@ class _SoilPageState extends State<SoilPage> {
                   ),
                 ),
                 title: const Text('Conductividad Hidráulica'),
-                subtitle: const Text('Cintas...'),
+                subtitle: const Text('¡Próximamente!'),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -272,7 +274,7 @@ class _SoilPageState extends State<SoilPage> {
                   ),
                 ),
                 title: const Text('Infiltración del Agua en el Suelo'),
-                subtitle: const Text('Cintas...'),
+                subtitle: const Text('¡Próximamente!'),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -290,7 +292,7 @@ class _SoilPageState extends State<SoilPage> {
                   ),
                 ),
                 title: const Text('Conductividad Térmica '),
-                subtitle: const Text('Cintas...'),
+                subtitle: const Text('¡Próximamente!'),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -321,7 +323,7 @@ class _SoilPageState extends State<SoilPage> {
                   ),
                 ),
                 title: const Text('Conductividad eléctrica '),
-                subtitle: const Text('Cintas...'),
+                subtitle: const Text('¡Próximamente!'),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -352,7 +354,7 @@ class _SoilPageState extends State<SoilPage> {
                   ),
                 ),
                 title: const Text('Actividad microbiana '),
-                subtitle: const Text('Cintas...'),
+                subtitle: const Text('¡Próximamente!'),
                 onTap: () {
                   Navigator.push(
                     context,

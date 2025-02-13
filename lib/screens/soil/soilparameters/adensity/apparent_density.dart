@@ -1,3 +1,5 @@
+import 'package:ecosuelolab/screens/soil/soilparameters/adensity/barrena.dart';
+import 'package:ecosuelolab/screens/soil/soilparameters/adensity/parafine.dart';
 import 'package:ecosuelolab/screens/soil/soilparameters/texture/bouyoucos.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +15,10 @@ class _AdensityState extends State<Adensity> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Densidad Aparente'),
+        title: const Text(
+          'Densidad Aparente',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Column(
         children: [
@@ -30,7 +35,7 @@ class _AdensityState extends State<Adensity> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Bouyoucos()),
+                MaterialPageRoute(builder: (context) => const Barrena()),
               );
             },
           ),
@@ -47,7 +52,7 @@ class _AdensityState extends State<Adensity> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Bouyoucos()),
+                MaterialPageRoute(builder: (context) => const Parafine()),
               );
             },
           ),
