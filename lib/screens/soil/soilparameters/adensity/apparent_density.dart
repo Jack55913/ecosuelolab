@@ -1,4 +1,5 @@
 import 'package:ecosuelolab/screens/soil/soilparameters/adensity/barrena.dart';
+import 'package:ecosuelolab/screens/soil/soilparameters/adensity/calc_density.dart';
 import 'package:ecosuelolab/screens/soil/soilparameters/adensity/parafine.dart';
 import 'package:ecosuelolab/screens/soil/soilparameters/texture/bouyoucos.dart';
 import 'package:flutter/material.dart';
@@ -56,8 +57,38 @@ class _AdensityState extends State<Adensity> {
               );
             },
           ),
+          ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Colors.brown[300],
+              child: Icon(
+                Icons.calculate,
+                color: Colors.brown[900],
+              ),
+            ),
+            title: const Text('Calculadora de la Densidad Aparente'),
+            subtitle: const Text('Datos de Masa y volumen'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const DensidadAparenteScreen()),
+              );
+            },
+          ),
         ],
       ),
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+//  Su valor se utiliza para el cálculo de la porosidad total del suelo, inferir procesos de compactación del suelo, calcular la masa de un suelo en un área con una profundidad determinada y el cálculo del carbono capturado por un suelo

@@ -11,9 +11,18 @@ class Bouyoucos extends StatefulWidget {
 class _BouyoucosState extends State<Bouyoucos> {
   // Mapa para almacenar el estado de cada ítem
   Map<String, bool> checklistItems = {
+    'Agua oxigenada al 30%.': false,
+    'Oxalato de sodio saturado. Disolver 30 g de oxalato de sodio en 1 litro de agua.':
+        false,
+    'Metasilicato de sodio con 36 g L-1 de lectura con el hidrómetro. Disolver 50 g de matasilicato de sodio':
+        false,
+    'en 1 litro de agua ajustar la solución hasta que se obtenga una lectura de 36 con el hidrómetro.':
+        false,
+    'Hexametafosfato de sodio (calgón). Disolver 50 g de (Na3PO3)6 en agua destilada y aforar a un litro':
+        false,
     'Hidrómetro de Bouyoucos con escala de 0-60': false,
     'Probetas de 1000 cc': false,
-    'Cilindro de Bouyoucos': false,
+    'Cilindro de BouyouCcos': false,
     'Agitador con motor para dispersión': false,
     'Agitador de mano': false,
     'Termómetro de -10 a 110°C': false,

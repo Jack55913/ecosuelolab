@@ -12,7 +12,7 @@ class TextureMenu extends StatefulWidget {
 
 class _TextureMenuState extends State<TextureMenu> {
   // Constantes para colores y estilos
-  static const Color primaryColor = Colors.brown; 
+  static const Color primaryColor = Colors.brown;
   static const TextStyle titleStyle = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.bold,
@@ -144,7 +144,7 @@ class _TextureMenuState extends State<TextureMenu> {
                   0: FlexColumnWidth(1),
                   1: FlexColumnWidth(1),
                   2: FlexColumnWidth(2),
-                  3: FlexColumnWidth(2),
+                  3: FlexColumnWidth(1),
                 },
                 children: [
                   TableRow(
@@ -174,7 +174,7 @@ class _TextureMenuState extends State<TextureMenu> {
                         child: Padding(
                           padding: tableCellPadding,
                           child: Text(
-                            'Clase de Textura',
+                            'Clase Textural',
                             style: tableHeaderStyle,
                           ),
                         ),
@@ -183,7 +183,7 @@ class _TextureMenuState extends State<TextureMenu> {
                         child: Padding(
                           padding: tableCellPadding,
                           child: Text(
-                            'Abreviaturas',
+                            'Código',
                             style: tableHeaderStyle,
                           ),
                         ),

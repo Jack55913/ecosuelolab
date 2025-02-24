@@ -1,3 +1,4 @@
+import 'package:ecosuelolab/screens/soil/soilparameters/adensity/calc_density.dart';
 import 'package:ecosuelolab/screens/soil/soilparameters/texture/texture_calc.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_tex/flutter_tex.dart';
@@ -89,8 +90,7 @@ final List<Map<String, String>> steps = [
     'image': 'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
   },
   {
-    'text':
-        'El volumen total se obtiene con las dimensiones del cilindro.',
+    'text': 'El volumen total se obtiene con las dimensiones del cilindro.',
     'image': 'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
   },
 ];
@@ -171,12 +171,12 @@ class NextPage extends StatelessWidget {
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const TexturaSueloScreen(),
+                          builder: (context) => const DensidadAparenteScreen(),
                         ),
                         (route) => false, // Elimina todas las rutas anteriores
                       );
                     },
-                    child: const Text('Calcular Densidad'),
+                    child: const Text('Calcular Densidad Aparente'),
                   ),
               ],
             ),

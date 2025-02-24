@@ -1,47 +1,194 @@
-// import 'dart:io';
-// import 'package:connectivity_plus/connectivity_plus.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_storage/firebase_storage.dart';
-// import 'package:flutter/cupertino.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-// class Measurement {
-//   final String? uploader;
-//   final num? precipitation;
+
+class SoilMeasurement {
+  final int measurementNumber;
+  final String irriwatchLink;
+  final DateTime date;
+  final double latitude;
+  final double longitude;
+  final double clay;
+  final double loam;
+  final double sand;
+  final String texturalClass;
+  final double organicMatter;
+  final double bulkDensityTexture;
+  final Map<String, Map<String, double>> samples; // "Between Furrows", "Between Plants", "At Root Depth"
+  final double fieldResult;
+  final double irriwatchResult;
+  final double averagePercentageError;
+  final String id;
+
+  SoilMeasurement({
+    required this.measurementNumber,
+    required this.irriwatchLink,
+    required this.date,
+    required this.latitude,
+    required this.longitude,
+    required this.clay,
+    required this.loam,
+    required this.sand,
+    required this.texturalClass,
+    required this.organicMatter,
+    required this.bulkDensityTexture,
+    required this.samples,
+    required this.fieldResult,
+    required this.irriwatchResult,
+    required this.averagePercentageError,
+    required this.id,
+  });
+
+  factory SoilMeasurement.fromJson(Map<String, dynamic> json, String id) {
+    Timestamp timestamp = json['date'];
+    var date = DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch);
+    return SoilMeasurement(
+      measurementNumber: json['measurementNumber'],
+      irriwatchLink: json['irriwatchLink'],
+      date: date,
+      latitude: json['latitude'],
+      longitude: json['longitude'],
+      clay: json['clay'],
+      loam: json['loam'],
+      sand: json['sand'],
+      texturalClass: json['texturalClass'],
+      organicMatter: json['organicMatter'],
+      bulkDensityTexture: json['bulkDensityTexture'],
+      samples: Map<String, Map<String, double>>.from(json['samples']),
+      fieldResult: json['fieldResult'],
+      irriwatchResult: json['irriwatchResult'],
+      averagePercentageError: json['averagePercentageError'],
+      id: id,
+    );
+  }
+}
+
+class AppState extends ChangeNotifier {
+  final db = FirebaseFirestore.instance;
+
+  Future<void> addMeasurement(SoilMeasurement measurement) async {
+    var ref = db.collection('soil_measurements').doc();
+    await ref.set({
+      'measurementNumber': measurement.measurementNumber,
+      'irriwatchLink': measurement.irriwatchLink,
+      'date': Timestamp.fromDate(measurement.date),
+      'latitude': measurement.latitude,
+      'longitude': measurement.longitude,
+      'clay': measurement.clay,
+      'loam': measurement.loam,
+      'sand': measurement.sand,
+      'texturalClass': measurement.texturalClass,
+      'organicMatter': measurement.organicMatter,
+      'bulkDensityTexture': measurement.bulkDensityTexture,
+      'samples': measurement.samples,
+      'fieldResult': measurement.fieldResult,
+      'irriwatchResult': measurement.irriwatchResult,
+      'averagePercentageError': measurement.averagePercentageError,
+    });
+  }
+
+  Future<List<SoilMeasurement>> getAllMeasurements() async {
+    var event = await db.collection('soil_measurements').get();
+    return event.docs.map((doc) => SoilMeasurement.fromJson(doc.data(), doc.id)).toList();
+  }
+
+  Stream<List<SoilMeasurement>> getMeasurementsStream() {
+    return db.collection('soil_measurements').snapshots().map(
+      (snapshot) => snapshot.docs.map(
+        (doc) => SoilMeasurement.fromJson(doc.data(), doc.id),
+      ).toList(),
+    );
+  }
+
+  Future<void> updateMeasurement(SoilMeasurement measurement) async {
+    await db.collection('soil_measurements').doc(measurement.id).update({
+      'measurementNumber': measurement.measurementNumber,
+      'irriwatchLink': measurement.irriwatchLink,
+      'date': Timestamp.fromDate(measurement.date),
+      'latitude': measurement.latitude,
+      'longitude': measurement.longitude,
+      'clay': measurement.clay,
+      'loam': measurement.loam,
+      'sand': measurement.sand,
+      'texturalClass': measurement.texturalClass,
+      'organicMatter': measurement.organicMatter,
+      'bulkDensityTexture': measurement.bulkDensityTexture,
+      'samples': measurement.samples,
+      'fieldResult': measurement.fieldResult,
+      'irriwatchResult': measurement.irriwatchResult,
+      'averagePercentageError': measurement.averagePercentageError,
+    });
+  }
+
+  Future<void> deleteMeasurement(String id) async {
+    await db.collection('soil_measurements').doc(id).delete();
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// class Inscription {
+//   final String? userName;
+//   final String? schoolName;
+//   final String? carrerName;
+//   final String? ubication;
+//   final String? sede;
 //   final DateTime? dateTime;
 //   final String id;
 //   final String? imageUrl;
-//   final String? avatarUrl; //+
-//   final bool? pluviometer;
-//   Measurement(
-//       {this.uploader,
-//       this.precipitation,
-//       this.dateTime,
-//       required this.id,
-//       this.imageUrl,
-//       this.avatarUrl, //+
-//       this.pluviometer});
-//   factory Measurement.fromJson(Map<String, dynamic> json, String id) {
+//   final String? avatarUrl;
+//   Inscription({
+//     this.userName,
+//     this.schoolName,
+//     this.carrerName,
+//     this.ubication,
+//     this.sede,
+//     this.dateTime,
+//     this.imageUrl,
+//     this.avatarUrl, //+
+//     // Sólo los que están loggeados pueden mandar info
+//     required this.id,
+//   });
+
+//   factory Inscription.fromJson(Map<String, dynamic> json, String id) {
 //     Timestamp timestamp = json['time'];
 //     var dateTime =
 //         DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch);
-
-//     return Measurement(
-//       uploader: json['uploader_name'],
-//       precipitation: json['precipitation'],
+//     return Inscription(
+//       userName: json['userName'],
+//       schoolName: json['schoolName'],
+//       carrerName: json['carrerName'],
+//       ubication: json['ubication'],
+//       sede: json['sede'],
 //       dateTime: dateTime,
 //       id: id,
 //       imageUrl: json['image'],
-//       avatarUrl: json['avatar_url'], //+
-//       pluviometer: json['pluviometer_state'],
+//       avatarUrl: json['avatar_url'],
 //     );
 //   }
 // }
 
-// class AppState extends ChangeNotifier {
-//   String rol = 'Monitor';
-//   String paraje = 'El Venturero'; //+
+// class AppState extends ChangeNotifier { 
+//   String inscription = 'Edición 2023';
+//   String registration = 'Registros';
 //   bool loading = true;
 //   final db = FirebaseFirestore.instance;
 
@@ -53,48 +200,37 @@
 //     loading = true;
 //     notifyListeners();
 //     final prefs = await SharedPreferences.getInstance();
-//     rol = prefs.getString('rol')!;
-//     paraje = prefs.getString('paraje')!;
+//     inscription = prefs.getString('inscription')!;
+//     registration = prefs.getString('registration')!;
 //     loading = false;
 //     notifyListeners();
 //   }
 
-// // Para cambiar de Rol y Paraje se realizan las siguientes dos funciones:
-
-//   Future<void> changeParaje(String newParaje) async {
-//     paraje = newParaje;
+//   Future<void> changeInscription(String newInscription) async {
+//     inscription = newInscription;
 //     notifyListeners();
 //     final prefs = await SharedPreferences.getInstance();
-//     prefs.setString('paraje', newParaje);
+//     prefs.setString('inscription', newInscription);
 //     prefs.setBool('hasFinishedOnboarding', true);
 //   }
 
-//   Future<void> changeRol(String newRol) async {
-//     rol = newRol;
-//     notifyListeners();
-//     final prefs = await SharedPreferences.getInstance();
-//     prefs.setString('rol', newRol);
-//     prefs.setBool('hasFinishedOnboarding', true);
-//   }
-
-// // PARA OBTENER LOS DATOS DE "ÍNDICE GEOGRÁFICO":
-
-//   Future<Map<String, dynamic>> getCurrentParajeData() async {
-//     var ref = db.collection('roles').doc(rol).collection('parajes').doc(paraje);
+//   /// No voy a convertir esto en una clase para que te dé flexibilidad de guardar
+//   /// lo que quieras en el mismo JSON
+//   Future<Map<String, dynamic>> getCurrentData() async {
+//     var ref = db.collection('inscriptions').doc(inscription);
 //     var snapshot = await ref.get();
 //     return snapshot.data() ?? {};
 //   }
 
-// // PARA GUARDAR LAS FOTOS EN FIREBASE STORAGE:
-
-//   Future<Map<String, dynamic>> _getMeasurementJson({
-//     required num precipitation,
-//     required DateTime time,
-//     String? uploader,
-//     File? image,
-//     String? oldImage,
-//     bool? pluviometer,
-//   }) async {
+//   Future<Map<String, dynamic>> _getInscriptionJson(
+//       {required DateTime time,
+//       File? image,
+//       String? oldImage,
+//       required String userName,
+//       required String schoolName,
+//       required String carrerName,
+//       required String ubication,
+//       required String sede}) async {
 //     // Primero, subir imagen a Firebase Hosting
 //     final auth = FirebaseAuth.instance;
 //     String? fileUrl;
@@ -102,16 +238,14 @@
 //       final storageRef = FirebaseStorage.instance.ref();
 //       final String fileExtension = image.path.split('.').last;
 //       final String fileName =
-//           '${time.year}-${time.month}-${time.day} ${time.hour}:${time.minute}:${time.second} $precipitation ${auth.currentUser?.email}';
+//           '${time.year}-${time.month}-${time.day} ${time.hour}:${time.minute}:${time.second}${auth.currentUser?.email}';
 //       final connectivityResult = await Connectivity().checkConnectivity();
-//       // ignore: unrelated_type_equality_checks
 //       if (connectivityResult == ConnectionState.none) {
 //         final imageString = await image.readAsString();
 //         fileUrl = imageString;
 //       } else {
-//         // Se crea una carpeta con el nombre measurement:
 //         final imageRef =
-//             storageRef.child("measurements/$fileName.$fileExtension");
+//             storageRef.child("registrations/$fileName.$fileExtension");
 //         await imageRef.putFile(image);
 //         fileUrl = await imageRef.getDownloadURL();
 //       }
@@ -119,318 +253,146 @@
 //       fileUrl = oldImage;
 //     }
 //     return {
-//       'precipitation': precipitation,
-//       'uploader_name': uploader,
-//       // 'uploader_name': auth.currentUser?.displayName,
-//       'uploader_email': auth.currentUser?.email,
-//       'uploader_id': auth.currentUser?.uid,
+//       // TODO: Agregar los más datos
+//       'userName': userName,
+//       'schoolName': schoolName,
+//       'carrerName': carrerName,
+//       'ubication': ubication,
+//       'sede': sede,
+//       'userName_email': auth.currentUser?.email,
+//       'userName_id': auth.currentUser?.uid,
+//       'avatar_url': auth.currentUser?.photoURL, //+
 //       'time': time,
 //       'image': fileUrl,
-//       'avatar_url': auth.currentUser?.photoURL, //+
-//       'pluviometer_state': pluviometer,
 //     };
 //   }
 
-//   Future<void> addMeasurement(
-//       {required num precipitation,
-//       required DateTime time,
-//       String? uploader,
-//       File? image,
-//       bool? pluviometer}) async {
-//     db
-//         .collection('roles')
-//         .doc(rol)
-//         .collection('parajes')
-//         .doc(paraje)
-//         .collection('measurements')
-//         .add(
-//           await _getMeasurementJson(
-//               uploader: uploader,
-//               precipitation: precipitation,
-//               time: time,
-//               image: image,
-//               pluviometer: pluviometer),
-//         );
-//   }
-
-//   Future<void> addRealMeasurement(
-//       {required num precipitation,
-//       required DateTime time,
-//       num lastPrecipitation = 0,
-//       String? uploader,
-//       File? image,
-//       bool? pluviometer}) async {
-//     db
-//         .collection('roles')
-//         .doc(rol)
-//         .collection('parajes')
-//         .doc(paraje)
-//         .collection('real_measurements')
-//         .add(
-//           await _getMeasurementJson(
-//               // TODO: PUNTO 1 DEL CONTRATO + FIREBASE
-//               uploader: uploader,
-//               precipitation: precipitation - lastPrecipitation,
-//               time: time,
-//               image: image,
-//               pluviometer: pluviometer),
-//         );
-//   }
-
-//   List<Measurement> _getListOfMeasurementsFromDocs(
-//       List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
-//     final List<Measurement> measurements = [];
-//     for (var doc in docs) {
-//       measurements.add(Measurement.fromJson(doc.data(), doc.id));
-//     }
-//     measurements.sort(
-//       (a, b) => b.dateTime!.difference(a.dateTime!).inSeconds,
-//     );
-//     return measurements;
-//   }
-
-//   List<Measurement> _getListOfRealMeasurementsFromDocs(
-//       List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
-//     final List<Measurement> measurements = [];
-//     for (var doc in docs) {
-//       measurements.add(Measurement.fromJson(doc.data(), doc.id));
-//     }
-//     measurements.sort(
-//       (a, b) => b.dateTime!.difference(a.dateTime!).inSeconds,
-//     );
-//     return measurements;
-//   }
-
-//   Future<List<Measurement>> getMeasurements() async {
-//     var event = await db
-//         .collection('roles')
-//         .doc(rol)
-//         .collection('parajes')
-//         .doc(paraje)
-//         .collection('measurements')
-//         .get();
-//     return _getListOfMeasurementsFromDocs(event.docs);
-//   }
-
-//   Future<List<Measurement>> getRealMeasurements() async {
-//     var event = await db
-//         .collection('roles')
-//         .doc(rol)
-//         .collection('parajes')
-//         .doc(paraje)
-//         .collection('real_measurements')
-//         .get();
-//     return _getListOfRealMeasurementsFromDocs(event.docs);
-//   }
-
-//   List<Measurement> getMeasurementsFromSnapshot(
-//       QuerySnapshot<Map<String, dynamic>> snapshot) {
-//     return _getListOfMeasurementsFromDocs(snapshot.docs);
-//   }
-
-//   List<Measurement> getRealMeasurementsFromSnapshot(
-//       QuerySnapshot<Map<String, dynamic>> snapshot) {
-//     return _getListOfRealMeasurementsFromDocs(snapshot.docs);
-//   }
-
-//   Stream<QuerySnapshot<Map<String, dynamic>>> getMeasurementsStream() {
-//     return db
-//         .collection('roles')
-//         .doc(rol)
-//         .collection('parajes')
-//         .doc(paraje)
-//         .collection('measurements')
-//         .snapshots();
-//   }
-
-//   Stream<QuerySnapshot<Map<String, dynamic>>> getRealMeasurementsStream() {
-//     return db
-//         .collection('roles')
-//         .doc(rol)
-//         .collection('parajes')
-//         .doc(paraje)
-//         .collection('real_measurements')
-//         .snapshots();
-//   }
-
-//   Stream<QuerySnapshot<Map<String, dynamic>>>
-//       getAguadeChiquerosMeasurementsStream() {
-//     return db
-//         .collection('roles')
-//         .doc('Monitor')
-//         .collection('parajes')
-//         .doc('Agua de Chiqueros')
-//         .collection('measurements')
-//         .snapshots();
-//   }
-
-//   Stream<QuerySnapshot<Map<String, dynamic>>> getCabanaMeasurementsStream() {
-//     return db
-//         .collection('roles')
-//         .doc('Monitor')
-//         .collection('parajes')
-//         .doc('Cabaña')
-//         .collection('measurements')
-//         .snapshots();
-//   }
-
-//   Stream<QuerySnapshot<Map<String, dynamic>>>
-//       getCanoasaltasMeasurementsStream() {
-//     return db
-//         .collection('roles')
-//         .doc('Monitor')
-//         .collection('parajes')
-//         .doc('Canoas altas')
-//         .collection('measurements')
-//         .snapshots();
-//   }
-
-//   Stream<QuerySnapshot<Map<String, dynamic>>>
-//       getCruzdeAtencoMeasurementsStream() {
-//     return db
-//         .collection('roles')
-//         .doc('Monitor')
-//         .collection('parajes')
-//         .doc('Cruz de Atenco')
-//         .collection('measurements')
-//         .snapshots();
-//   }
-
-//   Stream<QuerySnapshot<Map<String, dynamic>>> getElJardinMeasurementsStream() {
-//     return db
-//         .collection('roles')
-//         .doc('Monitor')
-//         .collection('parajes')
-//         .doc('El Jardín')
-//         .collection('measurements')
-//         .snapshots();
-//   }
-
-//   Stream<QuerySnapshot<Map<String, dynamic>>>
-//       getElVentureroMeasurementsStream() {
-//     return db
-//         .collection('roles')
-//         .doc('Monitor')
-//         .collection('parajes')
-//         .doc('El Venturero')
-//         .collection('measurements')
-//         .snapshots();
-//   }
-
-//   Stream<QuerySnapshot<Map<String, dynamic>>>
-//       getLosManantialesMeasurementsStream() {
-//     return db
-//         .collection('roles')
-//         .doc('Monitor')
-//         .collection('parajes')
-//         .doc('Los Manantiales')
-//         .collection('measurements')
-//         .snapshots();
-//   }
-
-//   Stream<QuerySnapshot<Map<String, dynamic>>>
-//       getTlaltlatlatelyMeasurementsStream() {
-//     return db
-//         .collection('roles')
-//         .doc('Monitor')
-//         .collection('parajes')
-//         .doc('Tlaltlatlately')
-//         .collection('measurements')
-//         .snapshots();
-//   }
-
-//   Stream<QuerySnapshot<Map<String, dynamic>>>
-//       getCaminoALasTrancasMeasurementsStream() {
-//     return db
-//         .collection('roles')
-//         .doc('Monitor')
-//         .collection('parajes')
-//         .doc('Camino a las Trancas')
-//         .collection('measurements')
-//         .snapshots();
-//   }
-
-//   Future<void> updateMeasurement({
-//     required String id,
-//     required num precipitation,
+//   Future<void> addInscription({
+//     required String userName,
+//     required String schoolName,
+//     required String carrerName,
+//     required String ubication,
+//     required String sede,
 //     required DateTime time,
-//     String? uploader,
-//     File? image,
-//     bool? pluviometer,
-
-//     /// En caso de que ya exista un URL de imagen (botón de editar, no crear)
-//     String? oldImage,
 //   }) async {
-//     await db
-//         .collection('roles')
-//         .doc(rol)
-//         .collection('parajes')
-//         .doc(paraje)
-//         .collection('measurements')
-//         .doc(id)
-//         .update(
-//           await _getMeasurementJson(
-//             uploader: uploader,
-//             precipitation: precipitation,
+//     db
+//         .collection('inscriptions')
+//         .doc(inscription)
+//         .collection('registrations')
+//         .add(
+//           await _getInscriptionJson(
+//             userName: userName,
+//             schoolName: schoolName,
 //             time: time,
-//             image: image,
-//             oldImage: oldImage,
-//             pluviometer: pluviometer,
+//             carrerName: carrerName,
+//             ubication: ubication,
+//             sede: sede,
 //           ),
 //         );
 //   }
 
-//   Future<void> updateRealMeasurement({
+//   List<Inscription> _getListOfAllInscriptionsFromDocs(
+//       List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
+//     final List<Inscription> registrations = [];
+//     for (var doc in docs) {
+//       registrations.add(Inscription.fromJson(doc.data(), doc.id));
+//     }
+//     registrations.sort(
+//       (a, b) => b.dateTime!.difference(a.dateTime!).inSeconds,
+//     );
+//     return registrations;
+//   }
+
+// // POR HACER
+//   List<Inscription> _getListOfInscriptionsFromDocs(
+//       List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
+//     final List<Inscription> registrations = [];
+//     for (var doc in docs) {
+//       registrations.add(Inscription.fromJson(doc.data(), doc.id));
+//     }
+//     registrations.sort(
+//       (a, b) => b.dateTime!.difference(a.dateTime!).inSeconds,
+//     );
+//     return registrations;
+//   }
+
+//   Future<List<Inscription>> getAllInscriptions() async {
+//     var event = await db
+//         .collection('inscriptions')
+//         .doc(inscription)
+//         .collection('registrations')
+//         .get();
+//     return _getListOfAllInscriptionsFromDocs(event.docs);
+//   }
+
+// // POR HACER:
+
+//   Future<List<Inscription>> getInscriptions() async {
+//     var event = await db
+//         .collection('inscriptions')
+//         .doc(inscription)
+//         .collection('registrations')
+//         .get();
+//     return _getListOfInscriptionsFromDocs(event.docs);
+//   }
+
+//   List<Inscription> getAllInscriptionsFromSnapshot(
+//       QuerySnapshot<Map<String, dynamic>> snapshot) {
+//     return _getListOfAllInscriptionsFromDocs(snapshot.docs);
+//   }
+
+// // POR HACER:
+//   List<Inscription> getInscriptionsFromSnapshot(
+//       QuerySnapshot<Map<String, dynamic>> snapshot) {
+//     return _getListOfInscriptionsFromDocs(snapshot.docs);
+//   }
+
+//   Stream<QuerySnapshot<Map<String, dynamic>>> getInscriptionsStream() {
+//     return db
+//         .collection('inscriptions')
+//         .doc(inscription)
+//         .collection('registrations')
+//         .snapshots();
+//   }
+
+//   Future<void> updateInscription({
+//     required String userName,
+//     required String schoolName,
+//     required String carrerName,
+//     required String ubication,
+//     required String sede,
 //     required String id,
-//     required num precipitation,
 //     required DateTime time,
-//     String? uploader,
-//     File? image,
-//     bool? pluviometer,
+//     // File? image,
 
 //     /// En caso de que ya exista un URL de imagen (botón de editar, no crear)
-//     String? oldImage,
+//     // String? oldImage,
 //   }) async {
 //     await db
-//         .collection('roles')
-//         .doc(rol)
-//         .collection('parajes')
-//         .doc(paraje)
-//         .collection('real_measurements')
+//         .collection('inscriptions')
+//         .doc(inscription)
+//         .collection('registrations')
 //         .doc(id)
 //         .update(
-//           await _getMeasurementJson(
-//             uploader: uploader,
-//             precipitation: precipitation,
+//           await _getInscriptionJson(
+//             userName: userName,
 //             time: time,
-//             image: image,
-//             oldImage: oldImage,
-//             pluviometer: pluviometer,
+//             // image: image,
+//             // oldImage: oldImage,
+//             schoolName: schoolName,
+//             carrerName: carrerName,
+//             ubication: ubication,
+//             sede: sede,
 //           ),
 //         );
 //   }
 
-//   Future<void> deleteMeasurement({required String id}) async {
+//   Future<void> deleteInscription({required String id}) async {
 //     await db
-//         .collection('roles')
-//         .doc(rol)
-//         .collection('parajes')
-//         .doc(paraje)
-//         .collection('measurements')
+//         .collection('inscriptions')
+//         .doc(inscription)
+//         .collection('registrations')
 //         .doc(id)
 //         .delete();
 //   }
-
-//   Future<void> deleteRealMeasurement({required String id}) async {
-//     await db
-//         .collection('roles')
-//         .doc(rol)
-//         .collection('parajes')
-//         .doc(paraje)
-//         .collection('real_measurements')
-//         .doc(id)
-//         .delete();
-//   }
-
-// // https://youtube.com/shorts/Nu16RLa2-7Y?si=Sc5iI1vOw4FN9ymy
 // }

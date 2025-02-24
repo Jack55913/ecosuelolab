@@ -1,3 +1,4 @@
+import 'package:ecosuelolab/screens/soil/soilparameters/adensity/calc_density.dart';
 import 'package:ecosuelolab/screens/soil/soilparameters/texture/texture_calc.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_tex/flutter_tex.dart';
@@ -12,10 +13,11 @@ class Parafine extends StatefulWidget {
 class _ParafineState extends State<Parafine> {
   // Mapa para almacenar el estado de cada ítem
   Map<String, bool> checklistItems = {
-    'Parafine Uhland': false,
-    'Botes de aluminio': false,
+    'Barrena Uhland': false,
+    'Parafina líquida': false,
+    'Hilo': false,
+    'Probeta graduada con capacidad de 500 mL ': false,
     'Estufa': false,
-    'Báscula': false,
   };
 
   // Función para verificar si todos los ítems están seleccionados
@@ -176,7 +178,7 @@ class NextPage extends StatelessWidget {
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const TexturaSueloScreen(),
+                          builder: (context) => const DensidadAparenteScreen(),
                         ),
                         (route) => false, // Elimina todas las rutas anteriores
                       );

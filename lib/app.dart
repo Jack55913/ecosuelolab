@@ -3,6 +3,7 @@ import 'package:ecosuelolab/screens/calibration/calibration.dart';
 import 'package:ecosuelolab/screens/hydrosat/hydrosat.dart';
 import 'package:ecosuelolab/screens/irriwatch/irriwatch.dart';
 import 'package:ecosuelolab/screens/soil/soil.dart';
+import 'package:ecosuelolab/screens/watersoil/watersoil.dart';
 import 'package:ecosuelolab/widgets/container.dart';
 import 'package:ecosuelolab/widgets/glass.dart';
 import 'package:ecosuelolab/widgets/tutorials.dart';
@@ -68,13 +69,34 @@ class _MyHomePageState extends State<MyHomePage> {
                   leading: CircleAvatar(
                     backgroundColor: Colors.brown[300],
                     child: Icon(
+                      Icons.water_drop,
+                      color: Colors.brown[900],
+                    ),
+                  ),
+                  title: const Text('Sistema Agua-Suelo'),
+                  subtitle: const Text('Estudio de la humedad del suelo'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WaterSoil()),
+                    );
+                  },
+                ),
+                const Divider(
+                  thickness: 1,
+                ),
+                ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.brown[300],
+                    child: Icon(
                       Icons.satellite_alt,
                       color: Colors.brown[900],
                     ),
                   ),
                   title: const Text('Parámetros Irriwatch'),
                   subtitle: const Text(
-                      'Software que proporciona datos de riego, a través de un satélite'),
+                      'Software que proporciona datos de riego, a través del monitoreo satelital de Hydrosat'),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -111,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   leading: CircleAvatar(
                     backgroundColor: Colors.brown[300],
                     child: Icon(
-                      Icons.water_drop,
+                      Icons.auto_graph_outlined,
                       color: Colors.brown[900],
                     ),
                   ),
@@ -133,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   data: DarkContainer(
                     fill: const TutorialWidget(),
                   ),
-                ), 
+                ),
                 const SizedBox(
                   height: 10,
                 ),
